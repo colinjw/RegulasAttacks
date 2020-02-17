@@ -9,6 +9,7 @@ namespace RegulasAttacks
     {
         static string data = "C:/cwscripts/C#/RegulasAttacks/RegulasAttacks/RegAttack.txt";
         static string[] content;
+        static List<string> vs = new List<string>();
 
         public static void Run()
         {
@@ -37,7 +38,11 @@ namespace RegulasAttacks
                     string newLine = line.Remove(0, 2);
                     Utils.Write(newLine);
                 }
-                else if (line.StartsWith("Choice"))
+                else if (line.StartsWith("Choice:"))
+                {
+                    vs.Add(line);
+                }
+                else if (line.StartsWith("ChoiceRun:"))
                 {
 
                 }
