@@ -8,39 +8,34 @@ namespace RegulasAttacks
         static int sleepTime = 30;
         public static void Write(string message)
         {
-            if (message.EndsWith(";One"))
+            if (message.Contains(";Fast"))
             {
-                string newMessage = message.Remove(message.Length - 4);
-                foreach (var item in newMessage)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write(item);
-                    Console.ResetColor();
-                    Thread.Sleep(sleepTime);
-                }
-                Console.WriteLine();
+                message = message.Replace(";Fast", "");
+                sleepTime = 0;
             }
-            else if (message.EndsWith(";Two"))
+            if (message.Contains(";Slow"))
             {
-                string newMessage = message.Remove(message.Length - 4);
-                foreach (var item in newMessage)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write(item);
-                    Console.ResetColor();
-                    Thread.Sleep(sleepTime);
-                }
-                Console.WriteLine();
+                message = message.Replace(";Slow", "");
+                sleepTime = 70;
             }
-            else
+            if (message.Contains(";Red"))
             {
-                foreach (var item in message)
-                {
-                    Console.Write(item);
-                    Thread.Sleep(sleepTime);
-                }
-                Console.WriteLine();
+                message = message.Replace(";Red", "");
+                Console.ForegroundColor = ConsoleColor.Red;
             }
+            if (message.Contains(";Green"))
+            {
+                message = message.Replace(";Green", "");
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
+            foreach (var item in message)
+            {
+                Console.Write(item);
+                Thread.Sleep(sleepTime);
+            }
+            Console.WriteLine();
+            Console.ResetColor();
+            sleepTime = 30;
         }
         public static void Write(int num)
         {
@@ -59,7 +54,16 @@ namespace RegulasAttacks
         }
         public static void Continue()
         {
+            Console.WriteLine("Press enter to continue...");
             Console.ReadLine();
+        }
+        public static void ThreeLines()
+        {
+            Console.WriteLine("\n\n\n");
+        }
+        public static void TabIn()
+        {
+            Console.Write("             ");
         }
     }
 }

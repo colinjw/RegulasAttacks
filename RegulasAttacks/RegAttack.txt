@@ -1,6 +1,33 @@
-1.This is line one.;One
-1.This is line two.;Two
-1.This is line three.
-2.This is line four.
-2.This is line five.;One
-2.This is line six.;Two
+Author: Colin Wyllie
+GameTitle: Regulas Attacks
+ts:.______       _______   _______  __    __   __          ___           _______.
+ts:|   _  \     |   ____| /  _____||  |  |  | |  |        /   \         /       |
+ts:|  |_)  |    |  |__   |  |  __  |  |  |  | |  |       /  ^  \       |   (----`
+ts:|      /     |   __|  |  | |_ | |  |  |  | |  |      /  /_\  \       \   \    
+ts:|  |\  \----.|  |____ |  |__| | |  `--'  | |  `----./  _____  \  .----)   |   
+ts:| _| `._____||_______| \______|  \______/  |_______/__/     \__\ |_______/    
+ts:                                                                      
+ts:     ___   .___________.___________.    ___       ______  __  ___  __   __  
+ts:    /   \  |           |           |   /   \     /      ||  |/  / |  | |  | 
+ts:   /  ^  \ `---|  |----`---|  |----`  /  ^  \   |  ,----'|  '  /  |  | |  | 
+ts:  /  /_\  \    |  |        |  |      /  /_\  \  |  |     |    <   |  | |  | 
+ts: /  _____  \   |  |        |  |     /  _____  \ |  `----.|  .  \  |__| |__| 
+ts:/__/     \__\  |__|        |__|    /__/     \__\ \______||__|\__\ (__) (__)
+in:Hello this is.;Red;Fast
+in:how I am reading from a.;Green;Slow
+in:file that you have made.
+in:What is your name stranger?
+in:{getPlayerName}
+c1:You must pick between A) This thing B) the next thing C) the other thing
+c1:You Picked this thing.Item: (Coins)
+c1:You Picked the next thing.Item: (Rubys)
+c1:You Picked the other thing.Item: (Sword)
+s1:senario 1.
+s1:This is because you picked the {playerName}.;One
+s1:This thing.;Two
+s2:senario 2.
+s2:This is because you picked the.
+s2:next thing
+s3:senario 3.
+s3:This is the third thing
+s3:Also known as the other thing.

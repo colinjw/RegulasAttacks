@@ -9,46 +9,63 @@ namespace RegulasAttacks
     {
         static string data = "C:/cwscripts/C#/RegulasAttacks/RegulasAttacks/RegAttack.txt";
         static string[] content;
-        static List<string> vs = new List<string>();
+        static string authName = "";
+        static string playerName = "";
+        static List<string> startList = new List<string>();
+        static List<string> loaderList = new List<string>();
 
         public static void Run()
         {
-            //StartScreen.TitleScreen();
-            Start();
+            Load();
+            //StartScreen();
+            Running();
+
             End();
         }
-        public static void Start()
+        static void Load()
         {
-
             content = File.ReadAllLines(data);
+
             foreach (string line in content)
             {
-                if (line.StartsWith("1."))
+                if (line.StartsWith("Author:"))
                 {
-                    string newLine = line.Remove(0, 2);
-                    Utils.Write(newLine);
+                    string nline = line.Replace("Author:", "");
+                    authName = nline;
+                    Utils.Write(authName);
                 }
-                else if (line.StartsWith("2."))
+                else if (line.StartsWith("ts:"))
                 {
-                    string newLine = line.Remove(0, 2);
-                    Utils.Write(newLine);
+                    string nline = line.Replace("ts:", "");
+                    startList.Add(nline);
                 }
-                else if (line.StartsWith("3."))
+                else
                 {
-                    string newLine = line.Remove(0, 2);
-                    Utils.Write(newLine);
-                }
-                else if (line.StartsWith("Choice:"))
-                {
-                    vs.Add(line);
-                }
-                else if (line.StartsWith("ChoiceRun:"))
-                {
-
+                    loaderList.Add(line);
                 }
             }
         }
-        public static void End()
+        static void StartScreen()
+        {
+            foreach (var item in startList)
+            {
+                Console.WriteLine(item);
+            }
+            Utils.ThreeLines();
+            Utils.TabIn();
+            Utils.Write($"Writen By {authName}.;Fast");
+            Utils.ThreeLines();
+            Utils.TabIn();
+            Utils.Continue();
+        }
+        static void Running()
+        {
+            foreach (var item in loaderList)
+            {
+                Utils.Write(item);
+            }
+        }
+        static void End()
         {
             Utils.Input();
         }
