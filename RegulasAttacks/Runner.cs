@@ -7,17 +7,17 @@ namespace RegulasAttacks
 {
     public class Runner
     {
-        static string data = "C:/cwscripts/C#/RegulasAttacks/RegulasAttacks/RegAttack.txt";
+        static string data = "D:/Create with Code/RegulasAttack/RegulasAttacks/RegulasAttacks/RegAttack.txt";
         static string[] content;
         static string authName = "";
-        static string playerName = "";
+        //static string playerName = "";
         static List<string> startList = new List<string>();
         static List<string> loaderList = new List<string>();
 
         public static void Run()
         {
             Load();
-            //StartScreen();
+            StartScreen();
             Running();
 
             End();
@@ -32,14 +32,17 @@ namespace RegulasAttacks
                 {
                     string nline = line.Replace("Author:", "");
                     authName = nline;
-                    Utils.Write(authName);
                 }
                 else if (line.StartsWith("ts:"))
                 {
                     string nline = line.Replace("ts:", "");
                     startList.Add(nline);
                 }
-                else
+                else if (line.StartsWith("GameTitle:"))
+                {
+                    string nline = line.Replace("GameTitle:", "");
+                    Console.Title = nline;
+                }
                 {
                     loaderList.Add(line);
                 }
@@ -57,9 +60,11 @@ namespace RegulasAttacks
             Utils.ThreeLines();
             Utils.TabIn();
             Utils.Continue();
+            Utils.Clear();
         }
         static void Running()
         {
+            
             foreach (var item in loaderList)
             {
                 Utils.Write(item);

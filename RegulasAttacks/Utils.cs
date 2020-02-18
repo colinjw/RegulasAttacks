@@ -65,5 +65,9 @@ namespace RegulasAttacks
         {
             Console.Write("             ");
         }
+        public static void Clear()
+        {
+            Console.Clear();
+        }
     }
 }
