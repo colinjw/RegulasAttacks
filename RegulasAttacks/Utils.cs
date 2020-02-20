@@ -54,7 +54,7 @@ namespace RegulasAttacks
         }
         public static void Continue()
         {
-            Console.WriteLine("Press enter to continue...");
+            Console.Write("Press enter to continue...");
             Console.ReadLine();
         }
         public static void ThreeLines()
