@@ -1,33 +1,23 @@
-Author: Colin Wyllie
-GameTitle: Regulas Attacks
-ts:.______       _______   _______  __    __   __          ___           _______.
-ts:|   _  \     |   ____| /  _____||  |  |  | |  |        /   \         /       |
-ts:|  |_)  |    |  |__   |  |  __  |  |  |  | |  |       /  ^  \       |   (----`
-ts:|      /     |   __|  |  | |_ | |  |  |  | |  |      /  /_\  \       \   \    
-ts:|  |\  \----.|  |____ |  |__| | |  `--'  | |  `----./  _____  \  .----)   |   
-ts:| _| `._____||_______| \______|  \______/  |_______/__/     \__\ |_______/    
-ts:                                                                      
-ts:     ___   .___________.___________.    ___       ______  __  ___  __   __  
-ts:    /   \  |           |           |   /   \     /      ||  |/  / |  | |  | 
-ts:   /  ^  \ `---|  |----`---|  |----`  /  ^  \   |  ,----'|  '  /  |  | |  | 
-ts:  /  /_\  \    |  |        |  |      /  /_\  \  |  |     |    <   |  | |  | 
-ts: /  _____  \   |  |        |  |     /  _____  \ |  `----.|  .  \  |__| |__| 
-ts:/__/     \__\  |__|        |__|    /__/     \__\ \______||__|\__\ (__) (__)
-in:Hello this is.;Red;Fast
-in:how I am reading from a.;Green;Slow
-in:file that you have made.
-in:What is your name stranger?
-in:{getPlayerName}
-c1:You must pick between A) This thing B) the next thing C) the other thing
-c1:You Picked this thing.Item: (Coins)
-c1:You Picked the next thing.Item: (Rubys)
-c1:You Picked the other thing.Item: (Sword)
-s1:senario 1.
-s1:This is because you picked the {playerName}.;One
-s1:This thing.;Two
-s2:senario 2.
-s2:This is because you picked the.
-s2:next thing
-s3:senario 3.
-s3:This is the third thing
-s3:Also known as the other thing.
+Author:Colin Wyllie
+GameTitle:Test
+ts:
+ts:Title Screen
+ts:
+in:Intro 
+in:Intro
+in:Intro 
+in:Get the players name {get: PlayerName}
+in:This is the start of sceen one {PlayerName}
+in:I will now ask you a question.
+in:Ask player A (coin), B (Sword), or C (luck)? {Choice: A:out1(getItem: Coin), B:out2(getItem: Sword), C:out3(getStat: luck + 10)}
+out1:You choose A and got a coin.{goto: s2}
+out2:You choose B and got a Sword.{goto: s2}
+out3:You choose C and got more Lucky.{goto: End1}
+s2:You move on to a new location
+s2:You are asked if you have payment to pass {need: Coin {goto: s4} }
+s2:Will you A: hand over the coin or B: attack? {Choice: A:out4(loseItem: Coin), B:out5 }
+out4:You hand over the coin{End1} 
+out5:You are killed {End3}
+End1:you are lucky
+End2:You have no coin to give.
+End3:That didnt go so well.

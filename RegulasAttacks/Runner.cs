@@ -7,104 +7,130 @@ namespace RegulasAttacks
 {
     public class Runner
     {
-        static string startScreen = @"
-.______       _______   _______  __    __   __          ___           _______.
-|   _  \     |   ____| /  _____||  |  |  | |  |        /   \         /       |
-|  |_)  |    |  |__   |  |  __  |  |  |  | |  |       /  ^  \       |   (----`
-|      /     |   __|  |  | |_ | |  |  |  | |  |      /  /_\  \       \   \    
-|  |\  \----.|  |____ |  |__| | |  `--'  | |  `----./  _____  \  .----)   |   
-| _| `._____||_______| \______|  \______/  |_______/__/     \__\ |_______/    
-                                                                      
-     ___   .___________.___________.    ___       ______  __  ___  __   __  
-    /   \  |           |           |   /   \     /      ||  |/  / |  | |  | 
-   /  ^  \ `---|  |----`---|  |----`  /  ^  \   |  ,----'|  '  /  |  | |  | 
-  /  /_\  \    |  |        |  |      /  /_\  \  |  |     |    <   |  | |  | 
- /  _____  \   |  |        |  |     /  _____  \ |  `----.|  .  \  |__| |__| 
-/__/     \__\  |__|        |__|    /__/     \__\ \______||__|\__\ (__) (__)";
-        static string authName = "Colin Wyllie";
-        static string playerName;
-        static string[] choice1 = { "You must make a choice of A, B, or C", "You picked A", "You picked B", "You picked C"};
-        static string[] intro = {"Intro Line One.","Intro Line Two.","Intro Line Three last line of the intro."};
-        static bool s1 = false;
-        static string[] senario1 = {"Senario One line one.", "Senario One line two", "Senario One line three"};
-        static bool s2 = false;
-        static string[] senario2 = {"Senario Two line one.", "Senario Two line two.", "Senario Two line three"};
-        static bool s3 = false;
-        static string[] senario3 = {"Senario Three line one", "Senario Three line two", "Senario Three line three"};
+        static string data = "C:/cwscripts/C#/RegulasAttacks/RegulasAttacks/RegAttack.txt";
+        static string[] content;
+        static List<string> titleScreen = new List<string>();
+        static List<string> introList = new List<string>();
+        static List<string> senarioList = new List<string>();
+        static List<string> outList = new List<string>();
+        static List<string> endList = new List<string>();
+        static string auth;
+        static string choice;
+        static bool MakingChoice = false;
+        static bool getPlayerName = false;
         public static void Run()
         {
+            Load();
             StartScreen();
             Intro();
-           // ChoiceOne();
-            OutOne();
             End();
+        }
+        private static void Load()
+        {
+            content = File.ReadAllLines(data);
+            foreach (string item in content)
+            {
+                if (item.Contains("Author:"))
+                {
+                    auth = item.Replace("Author:", "");
+                }
+                if (item.Contains("GameTitle:"))
+                {
+                    Console.Title = item.Replace("GameTitle:", "");
+                }
+                if (item.Contains("ts:"))
+                {
+                    titleScreen.Add(item.Replace("ts:", ""));
+                }
+                if (item.Contains("in:"))
+                {
+                    introList.Add(item.Replace("in:", ""));
+                }
+                if (item.Contains("s*:"))
+                {
+                    senarioList.Add(item);
+                }
+                if (item.Contains("out*:"))
+                {
+                    outList.Add(item);
+                }
+                if (item.Contains("End*:"))
+                {
+                    endList.Add(item);
+                }
+            }
         }
         static void StartScreen()
         {
-            Console.WriteLine(startScreen);
+            foreach (string item in titleScreen)
+            {
+                Utils.Write(item);
+            }
             Utils.ThreeLines();
-            Utils.Write($"Written By {authName}.;Fast");
+            Utils.Write($"Created by {auth}");
             Utils.ThreeLines();
             Utils.Continue();
             Utils.Clear();
         }
         static void Intro()
         {
-            foreach (var item in intro)
+            foreach (string item in introList)
             {
-                for (int i = 0; i < intro.Length; i++)
+                string newLine = item;
+                if (item.Contains("{get: PlayerName}"))
                 {
-                    Utils.Write(intro[i]);
+                    newLine = item.Replace("{get: PlayerName}", "");
+                    getPlayerName = true;
+                    
                 }
-            }
-        }
-        static void OutOne()
-        {
+                if (item.Contains("{PlayerName}"))
+                {
+                    newLine = item.Replace("{PlayerName}", auth);
+                }
+                if (item.Contains("{Choice:"))
+                {
+                    //in:Ask player A (coin), B (Sword), or C (luck)? {Choice: A:out1(getItem: Coin), B:out2(getItem: Sword), C:out3(getStat: luck + 10)}
+                    MakingChoice = true;
+                    int startIndex = item.IndexOf('{');
+                    int endIndex = item.IndexOf('}');
+                    choice = item.Remove(0, startIndex);
+                    newLine = item.Remove(startIndex, (endIndex - startIndex + 1));
+                }
+                Utils.Write(newLine);
+                if (MakingChoice)
+                {
+                    Utils.Write(MakeChoice(choice));
+                    MakingChoice = false;
 
-            if (s1 == true)
-            {
-                for (int i = 0; i <senario1.Length ; i++)
-                {
-                    Utils.Write(senario1[i]);
                 }
-            }
-            if (s2 == true)
-            {
-                for (int i = 0; i < senario2.Length; i++)
+                if (getPlayerName)
                 {
-                    Utils.Write(senario2[i]);
-                }
-            }
-            if (s3 == true)
-            {
-                for (int i = 0; i < senario3.Length; i++)
-                {
-                    Utils.Write(senario3[i]);
+                    GetPlayerName();
+                    getPlayerName = false;
                 }
             }
         }
-        static void Choice(string String)
+        static void GetPlayerName()
         {
-            Utils.Write(String[0]);
-            string theChoice = Utils.Input();
-            switch (theChoice)
+            auth = Utils.Input();
+        }
+        static string MakeChoice(string choice)
+        {
+            string choiceMade = choice;
+            /*string userPicked = Utils.Input();
+            switch (userPicked)
             {
                 case "A":
-                    Utils.Write(String[1]);
-                    break;
-                case "B":
-                    Utils.Write(String[2]);
-                    break;
-                case "C":
-                    Utils.Write(String[3]);
-                    break;
+                    choiceMade = choice.
                 default:
                     break;
             }
+            */
+            return choiceMade;
         }
         static void End()
         {
-            Utils.Input();
+            Utils.Continue();
         }
     }
 }
