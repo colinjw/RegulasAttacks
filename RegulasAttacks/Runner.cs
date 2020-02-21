@@ -94,6 +94,8 @@ namespace RegulasAttacks
                     int startIndex = item.IndexOf('{');
                     int endIndex = item.IndexOf('}');
                     choice = item.Remove(0, startIndex);
+                    choice = choice.Replace("{Choice: ", "");
+                    choice = choice.Replace("}", "");
                     newLine = item.Remove(startIndex, (endIndex - startIndex + 1));
                 }
                 Utils.Write(newLine);
@@ -116,7 +118,12 @@ namespace RegulasAttacks
         }
         static string MakeChoice(string choice)
         {
-            string choiceMade = choice;
+            string choiceMade = "";
+            string[] whatChoices = choice.Split(',');
+            foreach (var item in whatChoices)
+            {
+                Utils.Write(item);
+            }
             /*string userPicked = Utils.Input();
             switch (userPicked)
             {
